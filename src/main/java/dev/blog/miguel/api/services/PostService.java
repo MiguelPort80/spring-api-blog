@@ -45,7 +45,7 @@ public class PostService {
 	public Post update(Long id, Post obj) {
 		Post post = repository.getReferenceById(id);
 		updateData(post, obj);
-		return post;
+		return repository.save(post);
 	}
 	
 

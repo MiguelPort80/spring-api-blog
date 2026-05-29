@@ -10,11 +10,13 @@ import org.springframework.data.repository.query.Param;
 import dev.blog.miguel.api.entities.Post;
 
 public interface PostRepository extends JpaRepository<Post, Long>  {
-	@Query(value = "SELECT * FROM tb_post WHERE title LIKE :title OR "
-			+ "content LIKE :content OR "
-			+ "category LIKE :category", nativeQuery = true)
+	@Query(value = "SELECT * FROM post WHERE title LIKE CONCAT('%',:title,'%') OR "
+			+ "content LIKE CONCAT('%',:content,'%') OR "
+			+ "category LIKE CONCAT('%',:category,'%')", nativeQuery = true)
 	Optional<List<Post>> findByTerms(@Param("title") String title, 
 									 @Param("content") String content,
 									 @Param("category") String category);
+
+	
 
 }

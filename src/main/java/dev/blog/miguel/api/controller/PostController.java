@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.blog.miguel.api.entities.Post;
@@ -25,6 +26,8 @@ public class PostController {
 	private PostService postService;
 	@GetMapping
 	public ResponseEntity<List<Post>> findAll(){
+		
+		
 		List<Post> lista =  postService.findAll();
 		
 		return ResponseEntity.ok().body(lista);
@@ -37,8 +40,8 @@ public class PostController {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping("/?{term}")
-	public ResponseEntity<Optional<List<Post>>> findByTerms(@PathVariable String term){
+	@GetMapping("/search")
+	public ResponseEntity<Optional<List<Post>>> findByTerms(@RequestParam String term){
 		Optional<List<Post>> obj =  postService.findByTerms(term);
 		
 		return ResponseEntity.ok().body(obj);
